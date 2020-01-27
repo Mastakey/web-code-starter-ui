@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
 //Material UI
 import withStyles from "@material-ui/core/styles/withStyles";
@@ -20,13 +21,15 @@ const styles = {
 
 export class Home extends Component {
   render() {
-      const classes = this.props.classes;
+    const classes = this.props.classes;
     return (
       <Grid container spacing={2}>
         <Grid item xs={12}>
           <Paper className={classes.paper}>
             <Typography variant="h2">Home</Typography>
-            <Typography variant="body1">Hello!</Typography>
+            <Link to="/app">
+              <Typography variant="body1">Apps</Typography>
+            </Link>
           </Paper>
         </Grid>
       </Grid>

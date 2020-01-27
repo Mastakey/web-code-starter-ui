@@ -2,6 +2,7 @@
 import {
   CREATE_FIELD,
   READ_FIELD_ALL,
+  READ_FIELD_OBJ,
   READ_FIELD,
   UPDATE_FIELD,
   DELETE_FIELD,
@@ -21,6 +22,13 @@ const initialState = {
 export default function(state = initialState, action) {
   switch (action.type) {
     case READ_FIELD_ALL:
+      return {
+        ...state,
+        readLoading: false,
+        fields: action.payload,
+        error: {}
+      };
+    case READ_FIELD_OBJ:
       return {
         ...state,
         readLoading: false,

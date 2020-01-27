@@ -4,12 +4,14 @@ import PropTypes from "prop-types";
 //Redux
 import { connect } from "react-redux";
 import { getObj, deleteObj } from "../../redux/actions/objActions";
+import { getFieldsByObj } from "../../redux/actions/fieldActions";
 
 //Components
 import ViewObj from "../../components/app/obj/ViewObj";
 import LoadingBasic from "../../components/loading/LoadingBasic";
 import PageHeader from "../../components/nav/PageHeader";
 import ErrorHandler from "../../components/error/ErrorHandler";
+import ObjField from "../../components/app/field/ObjField";
 
 //Material UI
 import withStyles from "@material-ui/core/styles/withStyles";
@@ -24,7 +26,8 @@ const styles = {
 class objView extends Component {
   async componentDidMount() {
     const id = this.props.match.params.id;
-    await this.props.getObj(id);
+    this.props.getObj(id);
+    this.props.getFieldsByObj(id);
   }
   async deleteObj() {
     const id = this.props.match.params.id;
@@ -33,6 +36,8 @@ class objView extends Component {
   render() {
     const obj = this.props.obj.obj;
     const loading = this.props.obj.readLoading;
+    const fieldsLoading = this.props.field.readLoading;
+    const fields = this.props.field.fields;
     const error = this.props.obj.error;
     let header = (
       <PageHeader
@@ -46,14 +51,19 @@ class objView extends Component {
     );
     let body;
     let footer;
-    if (loading) {
+    if (loading || fieldsLoading) {
       body = (
         <Grid container item xs={12}>
           <LoadingBasic />
         </Grid>
       );
     } else {
-      body = <ViewObj obj={obj} deleteObj={this.deleteObj.bind(this)} />;
+      body = (
+        <Fragment>
+          <ViewObj obj={obj} deleteObj={this.deleteObj.bind(this)} />
+          <ObjField fields={fields} />
+        </Fragment>
+      );
     }
     return (
       <Grid container spacing={2}>
@@ -76,8 +86,8 @@ objView.propTypes = {
   deleteObj: PropTypes.func.isRequired
 };
 
-const mapStateToProps = state => ({ obj: state.obj });
+const mapStateToProps = state => ({ obj: state.obj, field: state.field });
 
-export default connect(mapStateToProps, { getObj, deleteObj })(
+export default connect(mapStateToProps, { getObj, deleteObj, getFieldsByObj })(
   withStyles(styles)(objView)
 );
