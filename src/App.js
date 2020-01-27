@@ -90,6 +90,11 @@ function App() {
               <Route exact path="/obj/create" component={objCreate} />
               <Route exact path="/obj/:id" component={objView} />
               <Route exact path="/obj/edit/:id" component={objEdit} />
+              <Route
+                exact
+                path="/obj/:id/field/create"
+                component={fieldCreate}
+              />
               <Route exact path="/app" component={appAll} />
               <Route exact path="/app/create" component={appCreate} />
               <Route exact path="/app/:id" component={appView} />

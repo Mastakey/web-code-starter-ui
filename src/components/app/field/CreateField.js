@@ -40,9 +40,8 @@ class CreateField extends Component {
       name: "",
       description: "",
       descriptionDelta: [],
-        type: "",
-        objId: "",
-
+      type: "",
+      objId: ""
     };
   }
   handleChange = event => {
@@ -55,8 +54,7 @@ class CreateField extends Component {
       description: this.state.description,
       descriptionDelta: this.state.descriptionDelta,
       type: this.state.type,
-      objId: this.state.objId,
-
+      objId: this.state.objId
     };
     await this.props.createField(data);
   };
@@ -68,10 +66,17 @@ class CreateField extends Component {
       descriptionDelta: editor.getContents()
     });
   }
+  componentDidMount() {
+    this.setState({
+      ...this.state,
+      objId: this.props.objId
+    });
+  }
   render() {
     const classes = this.props.classes;
     const loading = this.props.loading;
     const error = this.props.error;
+    const objId = this.props.objId;
     return (
       <Grid container spacing={2}>
         <Grid item xs={12}>
@@ -109,9 +114,9 @@ class CreateField extends Component {
             label="ObjId"
             variant="outlined"
             onChange={this.handleChange}
+            defaultValue={objId}
             fullWidth
           />
-
         </Grid>
         <Grid item xs={12}>
           <Button
@@ -130,7 +135,8 @@ class CreateField extends Component {
             variant="contained"
             color="secondary"
             component={Link}
-            to={`/field`}>
+            to={`/field`}
+          >
             Cancel
           </Button>
         </Grid>

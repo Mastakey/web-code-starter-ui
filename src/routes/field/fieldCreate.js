@@ -44,6 +44,7 @@ class fieldCreate extends Component {
         <CreateField
           loading={loading}
           createField={this.createField.bind(this)}
+          objId={this.props.match.params.id}
           error={error}
         />
       );

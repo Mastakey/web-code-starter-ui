@@ -35,6 +35,7 @@ class objView extends Component {
   }
   render() {
     const obj = this.props.obj.obj;
+    const objId = this.props.match.params.id;
     const loading = this.props.obj.readLoading;
     const fieldsLoading = this.props.field.readLoading;
     const fields = this.props.field.fields;
@@ -61,7 +62,7 @@ class objView extends Component {
       body = (
         <Fragment>
           <ViewObj obj={obj} deleteObj={this.deleteObj.bind(this)} />
-          <ObjField fields={fields} />
+          <ObjField fields={fields} objId={objId}/>
         </Fragment>
       );
     }
