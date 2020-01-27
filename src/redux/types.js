@@ -32,6 +32,7 @@ export const SET_CODE_ERROR = "SET_CODE_ERROR";
 export const CREATE_FIELD = "CREATE_FIELD";
 export const READ_FIELD_ALL = "READ_FIELD_ALL";
 export const READ_FIELD = "READ_FIELD";
+export const READ_FIELD_OBJ = "READ_FIELD_OBJ";
 export const UPDATE_FIELD = "UPDATE_FIELD";
 export const DELETE_FIELD = "DELETE_FIELD";
 export const WRITE_LOADING_FIELD = "WRITE_LOADING_FIELD";

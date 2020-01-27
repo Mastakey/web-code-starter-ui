@@ -1,6 +1,7 @@
 import {
   CREATE_FIELD,
   READ_FIELD_ALL,
+  READ_FIELD_OBJ,
   READ_FIELD,
   UPDATE_FIELD,
   DELETE_FIELD,
@@ -17,6 +18,23 @@ export const getFields = () => async dispatch => {
   try {
     const fields = await axios.get("/field");
     dispatch({ type: READ_FIELD_ALL, payload: fields.data });
+    return fields;
+  } catch (err) {
+    const errors = getErrors(err);
+    console.log(err);
+    console.log(errors);
+    dispatch({
+      type: SET_FIELD_ERROR,
+      payload: errors
+    });
+  }
+};
+
+export const getFieldsByObj = (objId) => async dispatch => {
+  dispatch({ type: READ_LOADING_FIELD });
+  try {
+    const fields = await axios.get("/obj/"+objId+"/field");
+    dispatch({ type: READ_FIELD_OBJ, payload: fields.data });
     return fields;
   } catch (err) {
     const errors = getErrors(err);
