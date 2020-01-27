@@ -70,6 +70,7 @@ class CreateObj extends Component {
     const classes = this.props.classes;
     const loading = this.props.loading;
     const error = this.props.error;
+    const appId = this.props.appId;
     return (
       <Grid container spacing={2}>
         <Grid item xs={12}>
@@ -98,6 +99,7 @@ class CreateObj extends Component {
             label="AppId"
             variant="outlined"
             onChange={this.handleChange}
+            defaultValue={appId}
             fullWidth
           />
 

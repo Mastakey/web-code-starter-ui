@@ -52,38 +52,36 @@ class ViewField extends Component {
     return (
       <Grid container spacing={2}>
         <Grid item xs={12}>
-            <Paper elevation={3} className={classes.paper}>
-              <Fab
-                size="small"
-                color="secondary"
-                className={classes.fabDelete}
-                onClick={this.handleDelete.bind(this)}
-              >
-                <DeleteIcon />
-              </Fab>
-              <DeleteDialog
-                deleteFunction={this.props.deleteField}
-                open={this.state.showDeleteDialog}
-                handleClose={this.handleDeleteDialogClose.bind(this)}
+          <Paper elevation={3} className={classes.paper}>
+            <Fab
+              size="small"
+              color="secondary"
+              className={classes.fabDelete}
+              onClick={this.handleDelete.bind(this)}
+            >
+              <DeleteIcon />
+            </Fab>
+            <DeleteDialog
+              deleteFunction={this.props.deleteField}
+              open={this.state.showDeleteDialog}
+              handleClose={this.handleDeleteDialogClose.bind(this)}
+            />
+            <Typography variant="h5">{field.name}</Typography>
+            <Typography variant="body1">
+              <span
+                dangerouslySetInnerHTML={{
+                  __html: field.description
+                }}
               />
-              <Typography variant="h5">{field.name}</Typography>
-              <Typography variant="body1">
-                <span
-                  dangerouslySetInnerHTML={{
-                    __html: field.description
-                  }}
-                />
-              </Typography>
-              <Typography variant="body1">{field.assignee}</Typography>
-              <Typography variant="body1">{field.details}</Typography>
-              <Typography variant="body1">{field.status}</Typography>
-              <Typography variant="body1">{field.priority}</Typography>
-              <Link to={`/field/edit/${field.id}`}>
-                <Fab size="small" color="default" className={classes.fab}>
-                  <EditIcon />
-                </Fab>
-              </Link>
-            </Paper>
+            </Typography>
+            <Typography variant="body1">{field.type}</Typography>
+            <Typography variant="body1">{field.objId}</Typography>
+            <Link to={`/field/edit/${field.id}`}>
+              <Fab size="small" color="default" className={classes.fab}>
+                <EditIcon />
+              </Fab>
+            </Link>
+          </Paper>
         </Grid>
       </Grid>
     );

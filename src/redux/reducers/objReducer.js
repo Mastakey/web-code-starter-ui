@@ -2,6 +2,7 @@
 import {
   CREATE_OBJ,
   READ_OBJ_ALL,
+  READ_OBJ_APP,
   READ_OBJ,
   UPDATE_OBJ,
   DELETE_OBJ,
@@ -21,6 +22,13 @@ const initialState = {
 export default function(state = initialState, action) {
   switch (action.type) {
     case READ_OBJ_ALL:
+      return {
+        ...state,
+        readLoading: false,
+        objs: action.payload,
+        error: {}
+      };
+    case READ_OBJ_APP:
       return {
         ...state,
         readLoading: false,

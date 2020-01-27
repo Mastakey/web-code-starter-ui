@@ -44,6 +44,7 @@ class objCreate extends Component {
         <CreateObj
           loading={loading}
           createObj={this.createObj.bind(this)}
+          appId={this.props.match.params.id}
           error={error}
         />
       );

@@ -17,10 +17,13 @@ export const CLEAR_MESSAGES = "CLEAR_MESSAGES";
 
 // Code reducers
 export const CREATE_CODE = "CREATE_CODE";
+export const CREATE_CODES = "CREATE_CODES";
 export const READ_CODE_ALL = "READ_CODE_ALL";
+export const READ_CODE_APP = "READ_CODE_APP";
 export const READ_CODE = "READ_CODE";
 export const UPDATE_CODE = "UPDATE_CODE";
 export const DELETE_CODE = "DELETE_CODE";
+export const DELETE_CODES = "DELETE_CODES";
 export const WRITE_LOADING_CODE = "WRITE_LOADING_CODE";
 export const READ_LOADING_CODE = "READ_LOADING_CODE";
 export const SET_CODE_ERROR = "SET_CODE_ERROR";
@@ -38,6 +41,7 @@ export const SET_FIELD_ERROR = "SET_FIELD_ERROR";
 // Obj reducers
 export const CREATE_OBJ = "CREATE_OBJ";
 export const READ_OBJ_ALL = "READ_OBJ_ALL";
+export const READ_OBJ_APP = "READ_OBJ_APP";
 export const READ_OBJ = "READ_OBJ";
 export const UPDATE_OBJ = "UPDATE_OBJ";
 export const DELETE_OBJ = "DELETE_OBJ";
@@ -54,4 +58,3 @@ export const DELETE_APP = "DELETE_APP";
 export const WRITE_LOADING_APP = "WRITE_LOADING_APP";
 export const READ_LOADING_APP = "READ_LOADING_APP";
 export const SET_APP_ERROR = "SET_APP_ERROR";
-

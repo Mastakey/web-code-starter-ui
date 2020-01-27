@@ -1,35 +1,37 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
 //Components
+import FileView from "../../view/FileView";
 import DeleteDialog from "../../../components/dialog/DeleteDialog";
 
 //Material UI
 import withStyles from "@material-ui/core/styles/withStyles";
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
+import Typography from "@material-ui/core/Typography";
+import Grid from "@material-ui/core/Grid";
 import Fab from "@material-ui/core/Fab";
 
 //Material Icons
-import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
+import CodeIcon from "@material-ui/icons/Code";
+import CloudDownloadIcon from "@material-ui/icons/CloudDownload";
 
 const styles = {
   paper: {
     padding: "20px"
   },
   fab: {
-    marginTop: "10px"
+    marginTop: "10px",
+    marginRight: "10px"
   },
   fabDelete: {
     float: "right"
   }
 };
 
-class ViewCode extends Component {
+class AppCode extends Component {
   constructor() {
     super();
     this.state = {
@@ -41,14 +43,23 @@ class ViewCode extends Component {
       showDeleteDialog: true
     });
   }
+
+  async handleGenerateCode() {
+    await this.props.createCodes();
+  }
+
+  handleDownloadCode(){
+    this.props.downloadCodes();
+  }
+
   handleDeleteDialogClose() {
     this.setState({
       showDeleteDialog: false
     });
   }
   render() {
+    const codes = this.props.codes;
     const classes = this.props.classes;
-    const code = this.props.code;
     return (
       <Grid container spacing={2}>
         <Grid item xs={12}>
@@ -62,28 +73,28 @@ class ViewCode extends Component {
               <DeleteIcon />
             </Fab>
             <DeleteDialog
-              deleteFunction={this.props.deleteCode}
+              deleteFunction={this.props.deleteCodes}
               open={this.state.showDeleteDialog}
               handleClose={this.handleDeleteDialogClose.bind(this)}
             />
-            <Typography variant="h5">{code.name}</Typography>
-            <Typography variant="body1">
-              <span
-                dangerouslySetInnerHTML={{
-                  __html: code.description
-                }}
-              />
-            </Typography>
-            <Typography variant="body1">{code.appId}</Typography>
-            <Typography variant="body1">{code.objId}</Typography>
-            <Typography variant="body1">{code.code}</Typography>
-            <Typography variant="body1">{code.folder}</Typography>
-            <Typography variant="body1">{code.type}</Typography>
-            <Link to={`/code/edit/${code.id}`}>
-              <Fab size="small" color="default" className={classes.fab}>
-                <EditIcon />
-              </Fab>
-            </Link>
+            <Typography variant="h5">Codes</Typography>
+            <FileView list={codes} />
+            <Fab
+              className={classes.fab}
+              size="small"
+              color="primary"
+              onClick={this.handleGenerateCode.bind(this)}
+            >
+              <CodeIcon />
+            </Fab>
+            <Fab
+              className={classes.fab}
+              size="small"
+              color="primary"
+              onClick={this.handleDownloadCode.bind(this)}
+            >
+              <CloudDownloadIcon />
+            </Fab>
           </Paper>
         </Grid>
       </Grid>
@@ -91,12 +102,14 @@ class ViewCode extends Component {
   }
 }
 
-ViewCode.propTypes = {
+AppCode.propTypes = {
   classes: PropTypes.object.isRequired,
-  deleteCode: PropTypes.func.isRequired,
-  code: PropTypes.object.isRequired
+  codes: PropTypes.array.isRequired,
+  deleteCodes: PropTypes.func.isRequired,
+  createCodes: PropTypes.func.isRequired,
+  downloadCodes: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({});
 
-export default connect(mapStateToProps, null)(withStyles(styles)(ViewCode));
+export default connect(mapStateToProps, null)(withStyles(styles)(AppCode));

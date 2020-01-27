@@ -16,15 +16,21 @@ import Signup from "./routes/Signup";
 import codeAll from "./routes/code/codeAll";
 import codeView from "./routes/code/codeView";
 import codeCreate from "./routes/code/codeCreate";
-import codeEdit from "./routes/code/codeEdit";//Field
+import codeEdit from "./routes/code/codeEdit";
+
+//Field
 import fieldAll from "./routes/field/fieldAll";
 import fieldView from "./routes/field/fieldView";
 import fieldCreate from "./routes/field/fieldCreate";
-import fieldEdit from "./routes/field/fieldEdit";//Obj
+import fieldEdit from "./routes/field/fieldEdit";
+
+//Obj
 import objAll from "./routes/obj/objAll";
 import objView from "./routes/obj/objView";
 import objCreate from "./routes/obj/objCreate";
-import objEdit from "./routes/obj/objEdit";//App
+import objEdit from "./routes/obj/objEdit";
+
+//App
 import appAll from "./routes/app/appAll";
 import appView from "./routes/app/appView";
 import appCreate from "./routes/app/appCreate";
@@ -87,8 +93,8 @@ function App() {
               <Route exact path="/app" component={appAll} />
               <Route exact path="/app/create" component={appCreate} />
               <Route exact path="/app/:id" component={appView} />
+              <Route exact path="/app/:id/obj/create" component={objCreate} />
               <Route exact path="/app/edit/:id" component={appEdit} />
-  
             </Switch>
           </div>
         </Router>

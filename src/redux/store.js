@@ -17,7 +17,7 @@ const reducers = combineReducers({
   code: codeReducer,
   field: fieldReducer,
   obj: objReducer,
-  app: appReducer,
+  app: appReducer
 });
 
 const store = createStore(
