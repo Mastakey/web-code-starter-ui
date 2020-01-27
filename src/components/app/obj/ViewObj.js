@@ -74,10 +74,7 @@ class ViewObj extends Component {
                   }}
                 />
               </Typography>
-              <Typography variant="body1">{obj.assignee}</Typography>
-              <Typography variant="body1">{obj.details}</Typography>
-              <Typography variant="body1">{obj.status}</Typography>
-              <Typography variant="body1">{obj.priority}</Typography>
+              <Typography variant="body1">{obj.appId}</Typography>
               <Link to={`/obj/edit/${obj.id}`}>
                 <Fab size="small" color="default" className={classes.fab}>
                   <EditIcon />

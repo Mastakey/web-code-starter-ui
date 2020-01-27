@@ -10,7 +10,7 @@ import {
 } from "../types";
 import axios from "axios";
 
-import { addMessageUtil } from "./actionsUtil.js";
+import { addMessageUtil, getErrors } from "./actionsUtil.js";
 
 export const getFields = () => async dispatch => {
   dispatch({ type: READ_LOADING_FIELD });
@@ -19,11 +19,12 @@ export const getFields = () => async dispatch => {
     dispatch({ type: READ_FIELD_ALL, payload: fields.data });
     return fields;
   } catch (err) {
+    const errors = getErrors(err);
     console.log(err);
-    console.log(err.response.data);
+    console.log(errors);
     dispatch({
       type: SET_FIELD_ERROR,
-      payload: err.response.data
+      payload: errors
     });
   }
 };
@@ -35,11 +36,12 @@ export const getField = id => async dispatch => {
     dispatch({ type: READ_FIELD, payload: field.data });
     return field;
   } catch (err) {
+    const errors = getErrors(err);
     console.log(err);
-    console.log(err.response.data);
+    console.log(errors);
     dispatch({
       type: SET_FIELD_ERROR,
-      payload: err.response.data
+      payload: errors
     });
   }
 };
@@ -52,11 +54,12 @@ export const createField = (data, history) => async dispatch => {
     addMessageUtil({ message: "Field created successfully", timeout: 4000 }, dispatch);
     history.push(`/field`);
   } catch (err) {
+    const errors = getErrors(err);
     console.log(err);
-    console.log(err.response.data);
+    console.log(errors);
     dispatch({
       type: SET_FIELD_ERROR,
-      payload: err.response.data
+      payload: errors
     });
   }
 };
@@ -75,11 +78,12 @@ export const editField = (id, field, history) => async dispatch => {
     );
     history.push(`/field/${id}`);
   } catch (err) {
+    const errors = getErrors(err);
     console.log(err);
-    console.log(err.response.data);
+    console.log(errors);
     dispatch({
       type: SET_FIELD_ERROR,
-      payload: err.response.data
+      payload: errors
     });
   }
 };
@@ -95,11 +99,12 @@ export const deleteField = (id, history) => async dispatch => {
     );
     history.push("/field");
   } catch (err) {
+    const errors = getErrors(err);
     console.log(err);
-    console.log(err.response.data);
+    console.log(errors);
     dispatch({
       type: SET_FIELD_ERROR,
-      payload: err.response.data
+      payload: errors
     });
   }
 };

@@ -10,7 +10,7 @@ import {
 } from "../types";
 import axios from "axios";
 
-import { addMessageUtil } from "./actionsUtil.js";
+import { addMessageUtil, getErrors } from "./actionsUtil.js";
 
 export const getApps = () => async dispatch => {
   dispatch({ type: READ_LOADING_APP });
@@ -19,11 +19,12 @@ export const getApps = () => async dispatch => {
     dispatch({ type: READ_APP_ALL, payload: apps.data });
     return apps;
   } catch (err) {
+    const errors = getErrors(err);
     console.log(err);
-    console.log(err.response.data);
+    console.log(errors);
     dispatch({
       type: SET_APP_ERROR,
-      payload: err.response.data
+      payload: errors
     });
   }
 };
@@ -35,11 +36,12 @@ export const getApp = id => async dispatch => {
     dispatch({ type: READ_APP, payload: app.data });
     return app;
   } catch (err) {
+    const errors = getErrors(err);
     console.log(err);
-    console.log(err.response.data);
+    console.log(errors);
     dispatch({
       type: SET_APP_ERROR,
-      payload: err.response.data
+      payload: errors
     });
   }
 };
@@ -49,14 +51,18 @@ export const createApp = (data, history) => async dispatch => {
   try {
     const app = await axios.post("/app", data);
     dispatch({ type: CREATE_APP, payload: app.data });
-    addMessageUtil({ message: "App created successfully", timeout: 4000 }, dispatch);
+    addMessageUtil(
+      { message: "App created successfully", timeout: 4000 },
+      dispatch
+    );
     history.push(`/app`);
   } catch (err) {
+    const errors = getErrors(err);
     console.log(err);
-    console.log(err.response.data);
+    console.log(errors);
     dispatch({
       type: SET_APP_ERROR,
-      payload: err.response.data
+      payload: errors
     });
   }
 };
@@ -75,11 +81,12 @@ export const editApp = (id, app, history) => async dispatch => {
     );
     history.push(`/app/${id}`);
   } catch (err) {
+    const errors = getErrors(err);
     console.log(err);
-    console.log(err.response.data);
+    console.log(errors);
     dispatch({
       type: SET_APP_ERROR,
-      payload: err.response.data
+      payload: errors
     });
   }
 };
@@ -95,11 +102,12 @@ export const deleteApp = (id, history) => async dispatch => {
     );
     history.push("/app");
   } catch (err) {
+    const errors = getErrors(err);
     console.log(err);
-    console.log(err.response.data);
+    console.log(errors);
     dispatch({
       type: SET_APP_ERROR,
-      payload: err.response.data
+      payload: errors
     });
   }
 };

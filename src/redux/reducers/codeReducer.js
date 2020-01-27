@@ -1,10 +1,13 @@
 //code reducers
 import {
   CREATE_CODE,
+  CREATE_CODES,
   READ_CODE_ALL,
+  READ_CODE_APP,
   READ_CODE,
   UPDATE_CODE,
   DELETE_CODE,
+  DELETE_CODES,
   READ_LOADING_CODE,
   WRITE_LOADING_CODE,
   SET_CODE_ERROR
@@ -27,6 +30,13 @@ export default function(state = initialState, action) {
         codes: action.payload,
         error: {}
       };
+    case READ_CODE_APP:
+      return {
+        ...state,
+        readLoading: false,
+        codes: action.payload,
+        error: {}
+      };
     case READ_CODE:
       return {
         ...state,
@@ -41,10 +51,24 @@ export default function(state = initialState, action) {
         codes: [...state.codes, action.payload],
         error: {}
       };
+    case CREATE_CODES:
+      return {
+        ...state,
+        writeLoading: false,
+        codes: action.payload,
+        error: {}
+      };
     case DELETE_CODE:
       return {
         ...state,
         writeLoading: false,
+        error: {}
+      };
+    case DELETE_CODES:
+      return {
+        ...state,
+        writeLoading: false,
+        codes: [],
         error: {}
       };
     case UPDATE_CODE:
