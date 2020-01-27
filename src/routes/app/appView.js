@@ -67,6 +67,7 @@ class appView extends Component {
 
   render() {
     const app = this.props.app.app;
+    const appId = this.props.match.params.id;
     const objs = this.props.obj.objs;
     const codes = this.props.code.codes;
     const loading = this.props.app.readLoading;
@@ -95,7 +96,7 @@ class appView extends Component {
       body = (
         <Fragment>
           <ViewApp app={app} deleteApp={this.deleteApp.bind(this)} />
-          <AppObj objs={objs} />
+          <AppObj objs={objs} appId={appId}/>
           <AppCode
             codes={codes}
             deleteCodes={this.deleteCodes.bind(this)}

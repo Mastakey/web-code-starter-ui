@@ -66,6 +66,12 @@ class CreateObj extends Component {
       descriptionDelta: editor.getContents()
     });
   }
+  componentDidMount(){
+    this.setState({
+      ...this.state,
+      appId: this.props.appId
+    })
+  }
   render() {
     const classes = this.props.classes;
     const loading = this.props.loading;
