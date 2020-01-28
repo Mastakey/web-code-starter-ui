@@ -57,6 +57,12 @@ class AppCode extends Component {
       showDeleteDialog: false
     });
   }
+  async handleDeleteDialogDelete(){
+    this.setState({
+      showDeleteDialog: false
+    });
+    await this.props.deleteCodes();
+  }
   render() {
     const codes = this.props.codes;
     const classes = this.props.classes;
@@ -73,7 +79,7 @@ class AppCode extends Component {
               <DeleteIcon />
             </Fab>
             <DeleteDialog
-              deleteFunction={this.props.deleteCodes}
+              deleteFunction={this.handleDeleteDialogDelete.bind(this)}
               open={this.state.showDeleteDialog}
               handleClose={this.handleDeleteDialogClose.bind(this)}
             />

@@ -28,7 +28,11 @@ class fieldView extends Component {
   }
   async deleteField() {
     const id = this.props.match.params.id;
-    await this.props.deleteField(id, this.props.history);
+    let objId = "";
+    if (this.props.field && this.props.field.field) {
+      objId = this.props.field.field.objId;
+    }
+    await this.props.deleteField(id, objId, this.props.history);
   }
   render() {
     const field = this.props.field.field;
@@ -53,7 +57,9 @@ class fieldView extends Component {
         </Grid>
       );
     } else {
-      body = <ViewField field={field} deleteField={this.deleteField.bind(this)} />;
+      body = (
+        <ViewField field={field} deleteField={this.deleteField.bind(this)} />
+      );
     }
     return (
       <Grid container spacing={2}>
