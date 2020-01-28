@@ -30,10 +30,10 @@ export const getFields = () => async dispatch => {
   }
 };
 
-export const getFieldsByObj = (objId) => async dispatch => {
+export const getFieldsByObj = objId => async dispatch => {
   dispatch({ type: READ_LOADING_FIELD });
   try {
-    const fields = await axios.get("/obj/"+objId+"/field");
+    const fields = await axios.get("/obj/" + objId + "/field");
     dispatch({ type: READ_FIELD_OBJ, payload: fields.data });
     return fields;
   } catch (err) {
@@ -68,9 +68,17 @@ export const createField = (data, history) => async dispatch => {
   dispatch({ type: WRITE_LOADING_FIELD });
   try {
     const field = await axios.post("/field", data);
+    const objId = data.objId;
     dispatch({ type: CREATE_FIELD, payload: field.data });
-    addMessageUtil({ message: "Field created successfully", timeout: 4000 }, dispatch);
-    history.push(`/field`);
+    addMessageUtil(
+      { message: "Field created successfully", timeout: 4000 },
+      dispatch
+    );
+    if (objId && objId !== "") {
+      history.push(`/obj/${objId}`);
+    } else {
+      history.push(`/field`);
+    }
   } catch (err) {
     const errors = getErrors(err);
     console.log(err);
@@ -106,7 +114,7 @@ export const editField = (id, field, history) => async dispatch => {
   }
 };
 
-export const deleteField = (id, history) => async dispatch => {
+export const deleteField = (id, objId, history) => async dispatch => {
   dispatch({ type: WRITE_LOADING_FIELD });
   try {
     const field = await axios.delete("/field/" + id);
@@ -115,7 +123,11 @@ export const deleteField = (id, history) => async dispatch => {
       { message: "Field deleted successfully", timeout: 4000 },
       dispatch
     );
-    history.push("/field");
+    if (objId && objId !== "") {
+      history.push(`/obj/${objId}`);
+    } else {
+      history.push(`/field`);
+    }
   } catch (err) {
     const errors = getErrors(err);
     console.log(err);

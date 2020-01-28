@@ -31,7 +31,11 @@ class objView extends Component {
   }
   async deleteObj() {
     const id = this.props.match.params.id;
-    await this.props.deleteObj(id, this.props.history);
+    let appId = "";
+    if (this.props.obj && this.props.obj.obj){
+      appId = this.props.obj.obj.appId;
+    }
+    await this.props.deleteObj(id, appId, this.props.history);
   }
   render() {
     const obj = this.props.obj.obj;

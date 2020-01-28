@@ -68,12 +68,17 @@ export const createObj = (data, history) => async dispatch => {
   dispatch({ type: WRITE_LOADING_OBJ });
   try {
     const obj = await axios.post("/obj", data);
+    const appId = data.appId;
     dispatch({ type: CREATE_OBJ, payload: obj.data });
     addMessageUtil(
       { message: "Obj created successfully", timeout: 4000 },
       dispatch
     );
-    history.push(`/obj`);
+    if (appId && appId !== "") {
+      history.push(`/app/${appId}`);
+    } else {
+      history.push(`/obj`);
+    }
   } catch (err) {
     const errors = getErrors(err);
     console.log(err);
@@ -109,7 +114,7 @@ export const editObj = (id, obj, history) => async dispatch => {
   }
 };
 
-export const deleteObj = (id, history) => async dispatch => {
+export const deleteObj = (id, appId, history) => async dispatch => {
   dispatch({ type: WRITE_LOADING_OBJ });
   try {
     const obj = await axios.delete("/obj/" + id);
@@ -118,7 +123,11 @@ export const deleteObj = (id, history) => async dispatch => {
       { message: "Obj deleted successfully", timeout: 4000 },
       dispatch
     );
-    history.push("/obj");
+    if (appId && appId !== "") {
+      history.push(`/app/${appId}`);
+    } else {
+      history.push(`/obj`);
+    }
   } catch (err) {
     const errors = getErrors(err);
     console.log(err);
